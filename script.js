@@ -103,7 +103,10 @@ app.events = function () {
     e.stopPropagation();
     app.recipeKeys();
     app.updateSearchForm();
-    $('h3').next().addClass('hide');
+    if ($(window).width() < 480) {
+      $('h3').next().addClass('hide');
+    }
+    
   })
   
   $('label').click(function () {
@@ -112,7 +115,7 @@ app.events = function () {
 
   if ($(window).width() < 480) {
     app.hideFilters();
-  }
+  };
 
 };
 
