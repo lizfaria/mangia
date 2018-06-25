@@ -1,5 +1,6 @@
 $black:#222;
 $white: whitesmoke;
+$blue: #01c3cf;
 
 body {
     font-family: 'Nixie One', cursive;
@@ -242,15 +243,15 @@ input[type="submit"] {
             justify-content: center;
             height:10%;
             margin-top:10px;
-            background-color:#01c3cf;
+            background-color:$blue;
             width:100%;
             font-family:'Libre Baskerville', serif;
             font-size:1.2rem;
             -webkit-transition:0.5s all ease;
             transition:0.5s all ease;
             cursor:pointer;
-            &:hover a {
-                    color: yellow;
+            &:hover {
+                background-color: darken($blue, 20%);
                 }
             a {
                 color:$white;
@@ -292,7 +293,7 @@ input[type="submit"] {
         padding: 0;
         margin: 0 0 0 10%; 
         color:black;
-        font-size:1rem;
+        font-size:1.2rem;
     }
 }
 

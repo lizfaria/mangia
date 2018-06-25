@@ -50,7 +50,7 @@ h1 {
 
 h2 {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   color: whitesmoke;
   font-size: 2rem;
   margin: 0;
@@ -208,7 +208,7 @@ input[type="submit"]:hover {
 #recipes .item {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   height: 500px;
   width: calc(22% - 20px);
@@ -280,8 +280,8 @@ input[type="submit"]:hover {
   cursor: pointer;
 }
 
-#recipes .item h5:hover a {
-  color: yellow;
+#recipes .item h5:hover {
+  background-color: #016369;
 }
 
 #recipes .item h5 a {
@@ -307,8 +307,8 @@ input[type="submit"]:hover {
   padding: 0;
   display: none;
   flex-direction: column;
-  justify-content: start;
-  align-items: start;
+  justify-content: flex-start;
+  align-items: flex-start;
   width: 100%;
   top: 36%;
   left: 0;
@@ -324,6 +324,6 @@ input[type="submit"]:hover {
   padding: 0;
   margin: 0 0 0 10%;
   color: black;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 /*# sourceMappingURL=styles.css.map */
