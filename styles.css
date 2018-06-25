@@ -225,10 +225,6 @@ input[type="submit"]:hover {
   position: relative;
 }
 
-#recipes .item:hover {
-  transform: translateY(-5px);
-}
-
 #recipes .item:hover .ingredients {
   display: flex !important;
 }
@@ -314,7 +310,7 @@ input[type="submit"]:hover {
   justify-content: start;
   align-items: start;
   width: 100%;
-  top: 32%;
+  top: 36%;
   left: 0;
   bottom: 0;
   right: 0;
@@ -326,7 +322,7 @@ input[type="submit"]:hover {
 
 .ingredients li {
   padding: 0;
-  margin: 0 0 0 10px;
+  margin: 0 0 0 10%;
   color: black;
   font-size: 1rem;
 }

@@ -205,9 +205,9 @@ input[type="submit"] {
         box-shadow:-1px 1px 4px #222;
         z-index:50;
         position: relative;
-        &:hover {
-            transform:translateY(-5px);
-        }
+        // &:hover {
+        //     transform:translateY(-5px);
+        // }
         &:hover .ingredients {
             display: flex !important;
         }
@@ -280,7 +280,7 @@ input[type="submit"] {
     justify-content: start;
     align-items: start;
     width:100%;
-    top: 32%;
+    top: 36%;
     left:0;
     bottom:0;
     right:0;
@@ -290,7 +290,7 @@ input[type="submit"] {
     transition:0.5s all ease;
     li {
         padding: 0;
-        margin: 0 0 0 10px; 
+        margin: 0 0 0 10%; 
         color:black;
         font-size:1rem;
     }
