@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Mangia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel='icon' type='image/png' href='assets/restaurant.svg'>
+    <script defer src='https://use.fontawesome.com/releases/v5.0.10/js/all.js'></script>
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:700|Nixie+One" rel="stylesheet">
+</head>
+<body>
+	<header>
+        <div class="title">
+            <h1>mangia</h1>
+            <h2 class="header__subtitle">A recipe is a story that ends with a good meal</h2>
+        </div>
+    	<form action="" id="search-form">
+    		<label for="search"><h3>enter ingredient</h3></label>
+            <input type="search" placeholder="avocado" id="search" name="search" required> 
+
+            <h3>
+                <i class="fas fa-chevron-circle-down"></i>
+                Filter Allergies
+            </h3>
+            <div class="allergies">
+                <input type="checkbox" name="allergy" id="dairy" value="396^Dairy-Free">
+                <label for="dairy">Dairy Free</label>
+                <input type="checkbox" name="allergy" id="gluten" value="393^Gluten-Free">
+                <label for="gluten">Gluten Free</label>
+                <input type="checkbox" name="allergy" id="peanut" value="394^Peanut-Free">
+                <label for="peanut">Peanut Free</label>
+                <input type="checkbox" name="allergy" id="tree" value="395^Tree Nut-Free">
+                <label for="tree">Tree Nut Free</label>
+                <input type="checkbox" name="allergy" id="seafood" value="398^Seafood-Free">
+                <label for="seafood">Seafood Free</label>
+                <input type="checkbox" name="allergy" id="wheat" value="392^Wheat-Free">
+                <label for="wheat">Wheat Free</label>
+            </div>
+                        
+            <h3>
+                <i class="fas fa-chevron-circle-down"></i>
+                Filter Dietary Restrictions
+            </h3>
+            <div class="dietary">
+                <input type="checkbox" name="diet" id="lacto-ovo" value="387^Lacto-ovo vegetarian">
+                <label for="lacto-ovo">Lacto-Ovo Vegetarian</label>
+                <input type="checkbox" name="diet" id="lacto" value="388^Lacto vegetarian">
+                <label for="lacto-ovo">Lacto-Ovo Vegetarian</label>
+                <input type="checkbox" name="diet" id="ovo" value="389^Ovo vegetarian">
+                <label for="lacto">Lacto Vegetarian</label>
+                <input type="checkbox" name="diet" id="pescetarian" value="390^Pescetarian">
+                <label for="pescetarian">Pescetarian</label>
+                <input type="checkbox" name="diet" id="vegan" value="386^Vegan">
+                <label for="vegan">Vegan</label>
+            </div>
+
+            <input type="submit" value="Find a Recipe" id="submit" name="submit">
+        </form>
+	</header>
+    
+    <section id="results">
+        <ul id="recipes"></ul>
+    </section>
+
+    <!-- <footer>
+        <p>&copy
+            <a href="lizfaria.ca">Liz Faria</a>
+        </p>
+        <p>Data obtained from
+            <a href="https://www.yummly.com/">Yummly API</a>
+        </p>
+    </footer> -->
+
+    
+
+    <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+    <script src="script.js"></script>
+    <!-- <script src="/path/to/infinite-scroll.pkgd.min.js"></script>
+     <script>
+     $('#recipes').infiniteScroll({
+            // options
+            path: function () {
+            const pageNumber = (this.loadCount + 1) * 10;
+            },
+            append: '.post',
+            history: false,
+        });
+     </script> -->
+</body>
+</html>
