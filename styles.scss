@@ -1,6 +1,9 @@
 $black:#222;
 $white: whitesmoke;
 $blue: #01c3cf;
+$yellow: #e9ea69;
+$bb-blue: #a9dff0;
+$ocean-blue: #50a8bc;
 
 body {
     font-family: 'Nixie One', cursive;
@@ -16,37 +19,22 @@ header {
     max-width:100%;
     height: 100vh;
     margin:0;
-    padding: 10%;
+    padding: 5%;
     box-sizing: border-box;
-    background-image: url(./assets/header-3.jpg);
+    background-image: url(./assets/header_background.png);
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
-.title {
-    display: flex;
-
-    @media(max-width: 900px) {
-        display:block;
-    }
+#search-form {
+    max-width: 900px;
+    transform:translateY(60px);
 }
 
-h1 {
-    font-size:5rem;
-    color:$white;
-    text-align:left;
-    margin:0;
-    padding:0;
-    font-weight: bold;
-    text-decoration: underline;
-    text-transform:lowercase;
-    @media(max-width:360px) {
-        font-size:4rem;
-    }
-}
 
 h2 {
     display: flex;
@@ -56,7 +44,6 @@ h2 {
     margin:0;
     padding:0 0 0 10px;
     text-transform:lowercase;
-    
     @media(max-width: 480px) {
         font-size:1.5rem;
     }
@@ -66,22 +53,25 @@ h2 {
     @media(max-width:1328px) {
             max-width:400px;
         }
-    @media(max-width: 480px) {
-        display: none;
-    }
 }
 
 input[type=search] {
-    width:250px;
-    height:40px;
-    font-size: 1.3rem;
+    width:100%;
+    height:80px;
+    font-size: 2rem;
+    @media(max-width:480px) {
+        font-size:1.5rem;
+        height: 50px;
+    }
     -webkit-transition:0.5s all ease;
     background-color: aliceblue;
-    border:3px solid $black;
-    text-align: center;
-
+    border:5px solid $yellow;
+    text-align: left;
+    font-family:'Libre Baskerville', serif;
+    margin-bottom:5%;
+    padding-left:5px;
     &:focus {
-        border:yellow 3px solid;
+        border:$yellow 5px solid;
     }
 }
 
@@ -90,18 +80,19 @@ label svg {
 }
 
 h3 {
-    color: $white;
-    font-size: 1.8rem;
+    color: $black;
+    font-size: 1.5rem;
     padding-bottom: 0;
     margin-bottom: 5px;
     text-transform:uppercase;
+    font-family:'Libre Baskerville', serif;
     @media(max-width:480px) {
         cursor: pointer;
     }
 }
 
 .fa-chevron-circle-down {
-    color:yellow;
+    color:$yellow;
     display: none;
 
     @media(max-width:480px) {
@@ -125,7 +116,7 @@ input[type="checkbox"] {
 .allergies label, .dietary label {
     margin: 5px 5px 0 0;
     padding:5px 10px;
-    border: 2px solid $black;
+    border: 2px solid orange;
     border-radius: 2px;
     font-size:1rem;
     letter-spacing: 1px;
@@ -135,22 +126,22 @@ input[type="checkbox"] {
     -webkit-transition:0.5s all ease;
     transition:0.5s all ease;
     &:hover {
-        background-color:yellow;
+        background-color:$yellow;
     }
     @media(max-width:365px) {
         padding: 3px 5px;
     }
 }
 .active {
-    background-color:yellow !important;
+    background-color:$yellow !important;
 }
 
 input[type="submit"] {
     text-align: center;
-    margin:20px 0;
+    margin:5% 0;
     width:250px;
-    height:40px;
-    background-color:yellow;
+    height:50px;
+    background-color:$yellow;
     border: 3px solid $black;
     text-transform:uppercase;
     font-weight: bold;
@@ -159,9 +150,13 @@ input[type="submit"] {
     cursor: pointer;
     -webkit-transition:0.5s all ease;
     transition:0.5s all ease;
+    box-shadow: 10px 10px orange;
+    border:3px solid $yellow;
+    -webkit-transition:0.5s all ease;
     &:hover {
-        background-color:aliceblue;
-        border:3px solid yellow;
+        transform: translateY(3px);
+        transform: translateX(3px);
+        box-shadow:7px 7px orange;
     }
 }
 
