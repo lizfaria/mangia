@@ -1,10 +1,9 @@
 const app = {};
 
 app.recipeKeys = function () {
-  const searchTerm = $('#search-form').children('input[type=search]').val();
-
+  const searchTerm = document.querySelector('input[type=search]').value;
   const allergies = [];
-  checkedAll = $('.allergies input[type = checkbox]').filter($('input:checked'));
+  const checkedAll = $('.allergies input[type = checkbox]').filter($('input:checked'));
   allergies.push(...checkedAll);
   const selectedAllergy = [];
   for (i = 0; i < allergies.length; i++) {
@@ -39,12 +38,12 @@ app.getRecipes = function (searchTerm, selectedAllergy, selectedDiet) {
   }).then((res) =>  {
     const apiResults = res;
     app.displayRecipes(apiResults);
-
-    
   });
 }
 
 app.displayRecipes = function (apiResults) {
+  const recipes = document.querySelector('#recipes');
+
     const recipeArray = apiResults.matches;
     recipeArray.forEach(function(item) {
       const title = $('<h4>').text(item.recipeName);
@@ -71,6 +70,29 @@ app.displayRecipes = function (apiResults) {
   app.smoothScroll();
 };
 
+let title = false;
+// app.updateSearchTitle = function (searchTerm) {
+//   const recipes = document.querySelector('#recipes');
+//   recipes.innerHTML = '';
+
+//   const searchTitle = document.querySelector('#searchTitle')
+//   if (title === true) {
+//     searchTitle.remove();
+//   } 
+
+//   const results = document.querySelector('#results');
+//   console.log(results);
+//   results.append('<h2>').textContent = ('Search results for')
+
+  // in results, create an h2 w. id of searchTitle and class or search-title and text content search reults 
+  // results.insertBefore('h2', recipes).textContent = `Search results for ${searchTerm}`
+  // .classList.add('search-title').setAttribute('id', 'searchTitle').textContent = `Search results for ${searchTerm}`
+
+  // const searchResultTitle `<h2 id="searchTitle" class=`search-title"`.textContent = `Search results for ${searchTerm}`;
+  
+  // recipes.before(searchResultTitle);
+// }
+
 app.updateSearchTitle = function (searchTerm) {
   $('#recipes').empty();
   $('#searchTitle').remove();
@@ -79,7 +101,7 @@ app.updateSearchTitle = function (searchTerm) {
 }
 
 app.updateSearchForm = function () {
-  document.getElementById("search-form").reset(); 
+  document.getElementById('search-form').reset(); 
 }
 
 app.smoothScroll = function () {
@@ -90,31 +112,40 @@ app.smoothScroll = function () {
 }
 
 app.hideFilters = function () {
-  $('h3').next().addClass('hide');
-  $('h3').click(function () {
-    $(this).next().toggleClass('hide');
+  const h3 = document.querySelectorAll('h3');
+  h3.forEach(h3 => {
+    h3.nextElementSibling.classList.add('hide');
+    h3.addEventListener('click', function() {
+      this.nextElementSibling.classList.toggle('hide');
+    });
   });
 }
 
 app.events = function () {
 
-  $('#search-form').on('submit', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    app.recipeKeys();
-    app.updateSearchForm();
-    if ($(window).width() < 480) {
-      $('h3').next().addClass('hide');
-    }
-    
-  })
-  
-  $('label').click(function () {
-    $(this).toggleClass('active');
+  if (window.innerWidth < 480) {
+    app.hideFilters();
+  };
+
+  let labelActive = false;
+  const label = document.querySelectorAll('label');
+  label.forEach(label => {
+    label.addEventListener('click', function() {
+      if (labelActive == false) {
+        this.classList.add('active');
+        let labelActive = true;
+      } else {
+        this.classList.remove('active');
+        let labelActive = false;
+      }
+    });
   });
 
-  if ($(window).width() < 480) {
-    app.hideFilters();
+    document.getElementById('submit').onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      app.recipeKeys();
+      app.updateSearchForm();
   };
 
 };
@@ -130,5 +161,5 @@ $(function () {
 // future:
 // make a title that says no results for searchterm is it is invalid
 // make entire recipe li clickable to link of reicpe site 
-// infinite sroll, 
-// animation on buttons
+// animation on buttons (directions stretch select)
+
