@@ -1,5 +1,5 @@
 body {
-  font-family: 'Nixie One', cursive;
+  font-family: "Lekton", sans-serif;
   margin: 0;
 }
 
@@ -32,6 +32,12 @@ header {
           align-items: center;
 }
 
+@media (max-width: 768px) {
+  header {
+    background-position: -50px;
+  }
+}
+
 #search-form {
   max-width: 900px;
   -webkit-transform: translateY(60px);
@@ -45,8 +51,9 @@ h2 {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-  color: whitesmoke;
+  color: #fffbe6;
   font-size: 2rem;
+  line-height: 50px;
   margin: 0;
   padding: 0 0 0 10px;
   text-transform: lowercase;
@@ -54,7 +61,7 @@ h2 {
 
 @media (max-width: 480px) {
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -69,10 +76,10 @@ input[type=search] {
   height: 80px;
   font-size: 2rem;
   -webkit-transition: 0.5s all ease;
-  background-color: aliceblue;
-  border: 5px solid #e9ea69;
+  background-color: #fffbe6;
+  border: 5px solid #fcb040;
   text-align: left;
-  font-family: 'Libre Baskerville', serif;
+  font-family: "Montserrat", sans-serif;
   margin-bottom: 5%;
   padding-left: 5px;
 }
@@ -88,17 +95,13 @@ input[type=search]:focus {
   border: #e9ea69 5px solid;
 }
 
-label svg {
-  color: whitesmoke;
-}
-
 h3 {
   color: #222;
   font-size: 1.5rem;
   padding-bottom: 0;
   margin-bottom: 5px;
   text-transform: uppercase;
-  font-family: 'Libre Baskerville', serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 @media (max-width: 480px) {
@@ -108,7 +111,7 @@ h3 {
 }
 
 .fa-chevron-circle-down {
-  color: #e9ea69;
+  color: #fcb040;
   display: none;
 }
 
@@ -139,12 +142,12 @@ input[type="checkbox"] {
 .allergies label, .dietary label {
   margin: 5px 5px 0 0;
   padding: 5px 10px;
-  border: 2px solid orange;
+  border: 2px solid #fcb040;
   border-radius: 2px;
   font-size: 1rem;
   letter-spacing: 1px;
   color: #222;
-  background-color: aliceblue;
+  background-color: #fffbe6;
   cursor: pointer;
   -webkit-transition: 0.5s all ease;
   transition: 0.5s all ease;
@@ -179,8 +182,8 @@ input[type="submit"] {
   cursor: pointer;
   -webkit-transition: 0.5s all ease;
   transition: 0.5s all ease;
-  -webkit-box-shadow: 10px 10px orange;
-          box-shadow: 10px 10px orange;
+  -webkit-box-shadow: 10px 10px #fcb040;
+          box-shadow: 10px 10px #fcb040;
   border: 3px solid #e9ea69;
   -webkit-transition: 0.5s all ease;
 }
@@ -190,22 +193,29 @@ input[type="submit"]:hover {
           transform: translateY(3px);
   -webkit-transform: translateX(3px);
           transform: translateX(3px);
-  -webkit-box-shadow: 7px 7px orange;
-          box-shadow: 7px 7px orange;
+  -webkit-box-shadow: 7px 7px #fcb040;
+          box-shadow: 7px 7px #fcb040;
 }
 
 #searchTitle {
   font-size: 4rem;
+  font-family: "Montserrat", sans-serif;
   margin: 30px 10px;
   padding-top: 30px;
-  margin: 0 0 0 20px;
+  margin: 0 0 0 0;
   padding: 30px 0;
   color: #222;
 }
 
+@media (max-width: 768px) {
+  #searchTitle {
+    font-size: 1.5rem;
+  }
+}
+
 #results {
   padding: 0 5%;
-  background-color: #ece3dc;
+  background-color: #DDF0E5;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='199' viewBox='0 0 100 199'%3E%3Cg fill='%2301c3cf' fill-opacity='0.26'%3E%3Cpath d='M0 199V0h1v1.99L100 199h-1.12L1 4.22V199H0zM100 2h-.12l-1-2H100v2z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
 }
 
@@ -240,24 +250,15 @@ input[type="submit"]:hover {
           align-items: center;
   height: 500px;
   width: calc(22% - 20px);
-  padding: 10px;
   margin-bottom: 40px;
   list-style: none;
-  background-color: lavenderblush;
-  border-radius: 4px;
+  background-color: #fffbe6;
   -webkit-transition: 0.5s all ease;
   transition: 0.5s all ease;
-  border-radius: 4px;
-  -webkit-box-shadow: -1px 1px 4px #222;
-          box-shadow: -1px 1px 4px #222;
+  -webkit-box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
+          box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
   z-index: 50;
   position: relative;
-}
-
-#recipes .item:hover .ingredients {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important;
 }
 
 @media (max-width: 1540px) {
@@ -291,12 +292,14 @@ input[type="submit"]:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  text-transform: uppercase;
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 2rem;
+  line-height: 30px;
   margin-bottom: 0;
   height: 12%;
-  font-family: 'Nixie One', cursive;
+  font-family: "Lekton", sans-serif;
+  color: #fcb040;
+  z-index: 2;
 }
 
 #recipes .item h5 {
@@ -311,33 +314,51 @@ input[type="submit"]:hover {
       -ms-flex-pack: center;
           justify-content: center;
   height: 10%;
-  margin-top: 10px;
-  background-color: #01c3cf;
-  width: 100%;
-  font-family: 'Libre Baskerville', serif;
+  margin: 0 0 0;
+  background-color: #a9dff0;
+  width: 85%;
+  font-family: "Lekton", sans-serif;
   font-size: 1.2rem;
+  text-transform: uppercase;
+  color: #fcb040;
   -webkit-transition: 0.5s all ease;
   transition: 0.5s all ease;
   cursor: pointer;
 }
 
 #recipes .item h5:hover {
-  background-color: #016369;
+  background-color: #bfe7f4;
 }
 
 #recipes .item h5 a {
-  color: whitesmoke;
+  color: #356859;
   font-weight: bold;
   text-decoration: none;
 }
 
 #recipes .item img {
-  width: 100%;
+  width: 85%;
   height: 215px;
   max-height: 215px;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 4px;
+  -webkit-transition: all 2s ease-in;
+  transition: all 2s ease-in;
+}
+
+#recipes .item .ingredientsButton {
+  width: 100;
+  position: absolute;
+  bottom: 0;
+  border: none;
+  border-top: 1px solid #01c3cf;
+  background: transparent;
+  height: 50px;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 #recipes .item li {
@@ -358,15 +379,17 @@ input[type="submit"]:hover {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  width: 100%;
-  top: 36%;
-  left: 0;
+  width: 93%;
+  top: 20%;
+  left: 7px;
   bottom: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 3;
+  background-color: rgba(255, 251, 230, 0.9);
   position: absolute;
   -webkit-transition: 0.5s all ease;
   transition: 0.5s all ease;
+  cursor: pointer;
 }
 
 .ingredients li {
@@ -374,5 +397,27 @@ input[type="submit"]:hover {
   margin: 0 0 0 10%;
   color: black;
   font-size: 1.2rem;
+}
+
+footer {
+  height: 3vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #a9dff0;
+}
+
+footer p {
+  color: #222;
+}
+
+footer a {
+  text-decoration: none;
+  color: #222;
 }
 /*# sourceMappingURL=styles.css.map */

@@ -1,9 +1,10 @@
 const app = {};
 
 app.recipeKeys = function () {
-  const searchTerm = document.querySelector('input[type=search]').value;
+  const searchTerm = $('#search-form').children('input[type=search]').val();
+
   const allergies = [];
-  const checkedAll = $('.allergies input[type = checkbox]').filter($('input:checked'));
+  checkedAll = $('.allergies input[type = checkbox]').filter($('input:checked'));
   allergies.push(...checkedAll);
   const selectedAllergy = [];
   for (i = 0; i < allergies.length; i++) {
@@ -31,67 +32,53 @@ app.getRecipes = function (searchTerm, selectedAllergy, selectedDiet) {
       _app_id: '0a0c3a8c',
       _app_key: '3d2d8d9336ff2dd0a5bbd759f25b8a3c',
       maxResult: 12,
-      q: searchTerm, 
+      q: searchTerm,
       allowedAllergy: selectedAllergy,
       allowedDiet: selectedDiet
     }
-  }).then((res) =>  {
+  }).then((res) => {
     const apiResults = res;
     app.displayRecipes(apiResults);
+
+
   });
 }
 
 app.displayRecipes = function (apiResults) {
-  const recipes = document.querySelector('#recipes');
+  const recipeArray = apiResults.matches;
+  recipeArray.forEach(function (item) {
+    const title = $('<h4>').text(item.recipeName);
 
-    const recipeArray = apiResults.matches;
-    recipeArray.forEach(function(item) {
-      const title = $('<h4>').text(item.recipeName);
+    const source = item.sourceDisplayName
+    const recipeUrl = `https://www.yummly.com/recipe/${item.id} `;
+    const linkUrl = $('<h5>').html(`<a href='${recipeUrl}' target='_blank'>${source} </a>`);
 
-      const source = item.sourceDisplayName
-      const recipeUrl = `https://www.yummly.com/recipe/${item.id} `;
-      const linkUrl = $('<h5>').html(`<a href='${recipeUrl}' target='_blank'>${source} </a>`);
+    const imageUrl = item.imageUrlsBySize['90'].split('=')[0];
+    const image = $('<img class="meal">').attr('src', imageUrl)
 
-
-      const ingredients = $('<ul>').addClass('ingredients');
-      const ingredient = item.ingredients.forEach(function (ingredient) {
-          const $li = $('<li>').text(ingredient).addClass('ingredient');
-          ingredients.append($li);
-      })
-      
-      const imageUrl = item.imageUrlsBySize['90'].split('=')[0];
-      const image = $('<img class="meal">').attr('src', imageUrl)
-
-      const recipeItem = $(`<li>`).addClass('item').append(title, linkUrl, image, ingredients);
-      
-      $('#recipes').append(recipeItem);
-      $('#recipes').css('display', 'flex');  
+    const ingredients = $('<ul>').text('X').addClass('ingredients');
+    const ingredient = item.ingredients.forEach(function (ingredient) {
+      const $li = $('<li>').text(ingredient).addClass('ingredient');
+      ingredients.append($li);
     });
+
+    const ingredientsButton = $('<button>').text('ingredients');$(ingredientsButton).addClass('ingredientsButton');
+
+    const recipeItem = $(`<li>`).addClass('item').append(title, image, linkUrl, ingredientsButton, ingredients);
+
+    $('#recipes').append(recipeItem);
+    $('#recipes').css('display', 'flex');
+  });
   app.smoothScroll();
+
+  $('.ingredientsButton').click(function () {
+    app.showIngredients();
+  });
+
+  $('.ingredients').click(function(){
+    app.showIngredients();
+  });
 };
-
-let title = false;
-// app.updateSearchTitle = function (searchTerm) {
-//   const recipes = document.querySelector('#recipes');
-//   recipes.innerHTML = '';
-
-//   const searchTitle = document.querySelector('#searchTitle')
-//   if (title === true) {
-//     searchTitle.remove();
-//   } 
-
-//   const results = document.querySelector('#results');
-//   console.log(results);
-//   results.append('<h2>').textContent = ('Search results for')
-
-  // in results, create an h2 w. id of searchTitle and class or search-title and text content search reults 
-  // results.insertBefore('h2', recipes).textContent = `Search results for ${searchTerm}`
-  // .classList.add('search-title').setAttribute('id', 'searchTitle').textContent = `Search results for ${searchTerm}`
-
-  // const searchResultTitle `<h2 id="searchTitle" class=`search-title"`.textContent = `Search results for ${searchTerm}`;
-  
-  // recipes.before(searchResultTitle);
-// }
 
 app.updateSearchTitle = function (searchTerm) {
   $('#recipes').empty();
@@ -101,7 +88,7 @@ app.updateSearchTitle = function (searchTerm) {
 }
 
 app.updateSearchForm = function () {
-  document.getElementById('search-form').reset(); 
+  document.getElementById("search-form").reset();
 }
 
 app.smoothScroll = function () {
@@ -112,41 +99,51 @@ app.smoothScroll = function () {
 }
 
 app.hideFilters = function () {
-  const h3 = document.querySelectorAll('h3');
-  h3.forEach(h3 => {
-    h3.nextElementSibling.classList.add('hide');
-    h3.addEventListener('click', function() {
-      this.nextElementSibling.classList.toggle('hide');
-    });
+  $('h3').next().addClass('hide');
+  $('h3').click(function () {
+    $(this).next().toggleClass('hide');
   });
+}
+
+let ingred = false;
+app.showIngredients = function() {
+  if (ingred === false) {
+  $('.ingredients').slideUp('slow')
+  $('.ingredients').css('display', 'flex', 'top', '-10%');
+  ingred = true;
+  }else if (ingred === true) {
+    $('.ingredients').on('click', app.hideIngredients());
+  };
+};
+
+
+app.hideIngredients = function() {
+  $('.ingredients').css('display', 'none', 'top', '20%');
+  ingred = false;
 }
 
 app.events = function () {
 
-  if (window.innerWidth < 480) {
-    app.hideFilters();
-  };
+  $('#search-form').on('submit', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    app.recipeKeys();
+    app.updateSearchForm();
+    if ($(window).width() < 480) {
+      $('h3').next().addClass('hide');
+    }
 
-  let labelActive = false;
-  const label = document.querySelectorAll('label');
-  label.forEach(label => {
-    label.addEventListener('click', function() {
-      if (labelActive == false) {
-        this.classList.add('active');
-        let labelActive = true;
-      } else {
-        this.classList.remove('active');
-        let labelActive = false;
-      }
-    });
+  })
+
+  $('label').click(function () {
+    $(this).toggleClass('active');
   });
 
-    document.getElementById('submit').onclick = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      app.recipeKeys();
-      app.updateSearchForm();
+  if ($(window).width() < 480) {
+    app.hideFilters(); 
   };
+
+ 
 
 };
 
@@ -161,5 +158,5 @@ $(function () {
 // future:
 // make a title that says no results for searchterm is it is invalid
 // make entire recipe li clickable to link of reicpe site 
-// animation on buttons (directions stretch select)
-
+// infinite sroll, 
+// animation on buttons
