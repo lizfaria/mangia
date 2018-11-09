@@ -302,7 +302,7 @@ input[type="submit"]:hover {
   z-index: 2;
 }
 
-#recipes .item h5 {
+#recipes .item a {
   text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -320,20 +320,18 @@ input[type="submit"]:hover {
   font-family: "Lekton", sans-serif;
   font-size: 1.2rem;
   text-transform: uppercase;
-  color: #fcb040;
+  text-decoration: none;
+  color: #356859;
   -webkit-transition: 0.5s all ease;
   transition: 0.5s all ease;
   cursor: pointer;
 }
 
-#recipes .item h5:hover {
+#recipes .item a:hover {
   background-color: #bfe7f4;
-}
-
-#recipes .item h5 a {
   color: #356859;
   font-weight: bold;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 #recipes .item img {
@@ -397,6 +395,18 @@ input[type="submit"]:hover {
   margin: 0 0 0 10%;
   color: black;
   font-size: 1.2rem;
+}
+
+.show {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  top: -10%;
+}
+
+.hide {
+  display: none;
+  top: 20%;
 }
 
 footer {

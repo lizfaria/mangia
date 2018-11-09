@@ -23,7 +23,6 @@ app.recipeKeys = function () {
   app.updateSearchTitle(searchTerm);
 }
 
-
 app.getRecipes = function (searchTerm, selectedAllergy, selectedDiet) {
   $.ajax({
     url: 'http://api.yummly.com/v1/api/recipes',
@@ -39,8 +38,6 @@ app.getRecipes = function (searchTerm, selectedAllergy, selectedDiet) {
   }).then((res) => {
     const apiResults = res;
     app.displayRecipes(apiResults);
-
-
   });
 }
 
@@ -160,3 +157,65 @@ $(function () {
 // make entire recipe li clickable to link of reicpe site 
 // infinite sroll, 
 // animation on buttons
+
+// app.displayRecipes = function (recipeArray) {
+//   const recipes = document.getElementById('recipes');
+//   recipeArray.forEach(item => {
+
+//     const title = document.createElement('H4');
+//     const titleText = document.createTextNode(item.recipeName);
+//     title.appendChild(titleText);
+
+
+//     const source = item.sourceDisplayName
+//     const recipeUrl = `https://www.yummly.com/recipe/${item.id} `;
+
+//     const linkUrl = document.createElement('a');
+//     const linkUrlText = document.createTextNode(source);
+
+//     linkUrl.appendChild(linkUrlText);
+//     linkUrl.setAttribute('href', recipeUrl);
+//     linkUrl.setAttribute('target', '_blank');
+
+//     const imageUrl = item.imageUrlsBySize['90'].split('=')[0];
+//     const image = document.createElement('img')
+//     const imageText = document.createTextNode('X');
+//     image.appendChild(imageText);
+//     image.classList.add('meal');
+//     image.setAttribute('src', imageUrl);
+
+
+//     const ingred = document.createElement('ul');
+//     const ingredText = document.createTextNode('X');
+//     ingred.appendChild(ingredText);
+//     ingred.classList.add('ingredients');
+
+//     item.ingredients.forEach(ingredient => {
+//       const $li = document.createElement('li')
+//       const $liText = document.createTextNode(ingredient);
+//       $li.appendChild($liText);
+//       $li.classList.add('ingredient');
+
+//       ingred.appendChild($li);
+//     });
+
+//     const ingredientsButton = document.createElement('button')
+//     const buttonText = document.createTextNode('ingredients');
+//     ingredientsButton.appendChild(buttonText);
+//     ingredientsButton.classList.add('ingredientsButton');
+
+//     const recipeItem = document.createElement('li');
+//     recipeItem.classList.add('item');
+//     recipeItem.appendChild(title);
+//     recipeItem.appendChild(image);
+//     recipeItem.appendChild(linkUrl);
+//     recipeItem.appendChild(ingredientsButton);
+//     recipeItem.appendChild(ingred);
+
+//     recipes.appendChild(recipeItem);
+//     recipes.style.display = 'flex';
+
+//     // app.toggleIngredients(ingredientsButton, recipeItem);
+//   });
+//   app.smoothScroll();
+// };

@@ -236,7 +236,7 @@ input[type="submit"] {
             color: $orange;
             z-index:2;
         }
-        h5 {
+        a {
             text-align:center;
             display:flex;
             align-items:center;
@@ -248,17 +248,17 @@ input[type="submit"] {
             font-family: $subtitle;
             font-size:1.2rem;
             text-transform: uppercase;
-            color:$orange;
+            text-decoration: none;
+            color:#356859;
             -webkit-transition:0.5s all ease;
             transition:0.5s all ease;
             cursor:pointer;
+
             &:hover {
                 background-color: lighten($bb-blue, 5%);
-                }
-            a {
                 color:#356859;
                 font-weight:bold;
-                text-decoration: none;
+                text-decoration: underline;
             }
         }
         img {
@@ -316,7 +316,14 @@ input[type="submit"] {
         font-size:1.2rem;
     }
 }
-
+.show {
+    display: flex;
+    top: -10%;
+}
+.hide {
+    display: none;
+    top: 20%;
+}
 footer {
     height:3vh;
     display: flex;
