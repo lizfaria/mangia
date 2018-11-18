@@ -1,17 +1,13 @@
 const app = {};
 
 app.recipeKeys = function () {
-    const searchTerm = document.querySelector('input[type = search]').value;
-    
+    const searchTerm = document.querySelector('input[type = search]').value; 
     const allAllergies = document.querySelectorAll('.allergies input[type = checkbox]');
     const selectedAllergy = [...allAllergies].filter(input => input.checked == true);
-
     const allDiets = document.querySelectorAll('.dietary input[type = checkbox]');
     const selectedDiet = [...allDiets].filter(input => input.checked == true);
 
     app.getRecipes(searchTerm, selectedAllergy, selectedDiet);
-    app.emptyPreviousSearchResults();
-    app.updateSearchTitle(searchTerm);
 }
 
 app.getRecipes = function (searchTerm, selectedAllergy, selectedDiet) {
@@ -21,7 +17,7 @@ app.getRecipes = function (searchTerm, selectedAllergy, selectedDiet) {
             params: {
                 _app_id: '0a0c3a8c',
                 _app_key: '3d2d8d9336ff2dd0a5bbd759f25b8a3c',
-                maxResult: 12,
+                maxResult: 16,
                 q: searchTerm,
                 allowedAllergy: selectedAllergy,
                 allowedDiet: selectedDiet
@@ -30,10 +26,11 @@ app.getRecipes = function (searchTerm, selectedAllergy, selectedDiet) {
         .then(res => {
         let apiResults = res;
         const recipeArray = apiResults.data.matches;
+        
+        app.updateSearchTitle(searchTerm, recipeArray);
         app.displayRecipes(recipeArray);
         });
 };
-
 
 app.appendElemToUl = function(parent, child) {
     return parent.appendChild(child);
@@ -47,6 +44,19 @@ app.appendHtmlToElem = function(elem, html, recipeItem, className) {
     app.appendElemToUl(recipeItem, a);
     return a;
 }
+
+app.appendHtmlToElemOnly = function(elem, html, className) {
+    const a = document.createElement(elem);
+    const b = document.createTextNode(html);
+    a.appendChild(b);
+    a.classList.add(className);
+    return a;
+}
+
+app.setAttr = function(elem, attr_prop, attr_val) {
+    return elem.setAttribute(attr_prop, attr_val);
+}
+
 app.showRecipeTitle = function (item, recipeItem) {
     const elem = 'h4';
     const html = item.recipeName;
@@ -56,33 +66,21 @@ app.showRecipeTitle = function (item, recipeItem) {
 app.showRecipeSource = function (item, recipeItem) {
     const source = item.sourceDisplayName
     const recipeUrl = `https://www.yummly.com/recipe/${item.id}`;
-    
-    // TO DO: CONDENSE INTO OTHER FUNCTION
-    const linkUrl = document.createElement('a');
-    const linkUrlText = document.createTextNode(source);
-    linkUrl.appendChild(linkUrlText);
-    
-    linkUrl.setAttribute('href', recipeUrl);
-    linkUrl.setAttribute('target', '_blank');
-
-    app.appendElemToUl(recipeItem, linkUrl)
-
+    const linkElem = "a"
+    const link = app.appendHtmlToElem(linkElem, source, recipeItem, 'recipe_link');
+    app.setAttr(link, 'href', recipeUrl);
+    app.setAttr(link, 'target', '_blank');
 }
 
 app.showRecipeImage = function (item, recipeItem) {
     const imageUrl = item.imageUrlsBySize['90'].split('=')[0];
-        
-    // TO DO: CONDENSE INTO OTHER FUNCTION
-    const image = document.createElement('img')
-    const imageText = document.createTextNode('X');
-    image.appendChild(imageText);
-    image.classList.add('meal');
-    image.setAttribute('src', imageUrl);
-    app.appendElemToUl(recipeItem, image);
+    const imageElement = app.appendHtmlToElem('img', 'X', recipeItem, 'meal');
+    app.appendElemToUl(recipeItem, imageElement);
+    app.setAttr(imageElement, 'src', imageUrl)
 }
 
 app.createIngredientsUl = function (item, recipeItem) {
-    const ingredientUl = app.appendHtmlToElem('ul', 'X', recipeItem, 'ingredients');
+    const ingredientUl = app.appendHtmlToElem('ul', 'X', recipeItem, 'ingredients'); 
     app.addIngredientsLiToUl(item, ingredientUl, recipeItem);
 }
 
@@ -97,38 +95,27 @@ app.addIngredientToUl = function (ingredientUl, ingredient, recipeItem) {
 }
 
 app.createIngredientLi = function (ingredient) {
-    const li = document.createElement('li')
-    const liText = document.createTextNode(ingredient);
-    li.appendChild(liText);
-    li.classList.add('ingredient');
+    const li = app.appendHtmlToElemOnly('li', ingredient, 'ingredient');
     return li;
 }
 
 app.createIngredientsButton = function (recipeItem) {
-        // TO DO: CONDENSE INTO OTHER FUNCTION
-    const ingredientsButton = document.createElement('button')
-    const buttonText = document.createTextNode('ingredients');
-    ingredientsButton.appendChild(buttonText);
-    ingredientsButton.classList.add('ingredientsButton');
-
-    app.appendElemToUl(recipeItem, ingredientsButton);
+    ingredientsButton = app.appendHtmlToElem('button', 'ingredients', recipeItem, 'ingredientsButton');
     app.toggleIngredients(recipeItem, ingredientsButton);
 }
 
 app.displayRecipes = function (recipeArray) {
     const recipes = document.getElementById('recipes');
     recipeArray.forEach(item => {
-        const recipeItem = document.createElement('li');
-        recipeItem.classList.add('item');
+        const recipeItem = app.appendHtmlToElemOnly('li', "", 'item');
 
         app.showRecipeTitle(item, recipeItem);
         app.showRecipeSource(item, recipeItem);
         app.showRecipeImage(item, recipeItem);
-
         app.createIngredientsUl(item, recipeItem);
         app.createIngredientsButton(recipeItem);
-        
         app.appendElemToUl(recipes, recipeItem);
+
         recipes.style.display = 'flex';
     });
     app.smoothScroll();
@@ -148,13 +135,14 @@ app.showOrHideIngredients = function (recipeItem) {
         app.showIngredients(ingredients);
     }
 };
+
 app.showIngredients = function (ingredients) {
-    ingredients.classList.remove("hide");
+    // ingredients.classList.remove("hide");
     ingredients.classList.add("show");
 }
 app.hideIngredients = function (ingredients) {
     ingredients.classList.remove("show");
-    ingredients.classList.add("hide");  
+    // ingredients.classList.add("hide");  
 }
 
 app.emptyPreviousSearchResults = function () {
@@ -162,14 +150,18 @@ app.emptyPreviousSearchResults = function () {
     recipes.innerHTML = '';
 }
 
-app.updateSearchTitle = function (searchTerm) {
+app.updateSearchTitle = function(searchTerm, recipeArray) {
     const recipes = document.getElementById('recipes');
     const searchTitle = document.getElementById('searchTitle');
     if (searchTitle) {
         const results = document.getElementById('results');
         results.removeChild(searchTitle);
     } 
-    recipes.insertAdjacentHTML('beforebegin', `<h2 class="search-title" id="searchTitle">${`Search results for ${searchTerm}`}</h2>`);
+    if (recipeArray.length > 0 ) {
+        recipes.insertAdjacentHTML('beforebegin', `<h2 class="search-title" id="searchTitle">${`Search results for ${searchTerm}`}</h2>`)
+    } else {
+        recipes.insertAdjacentHTML('beforebegin', `<h2 class="search-title" id="searchTitle">${`No results for ${searchTerm}`}</h2>`)
+    } 
 }
 
 app.updateSearchForm = function () {
@@ -198,16 +190,13 @@ app.events = function () {
         app.hideFilters();
     };
 
-    let labelActive = false;
     const label = document.querySelectorAll('label');
     label.forEach(label => {
         label.addEventListener('click', function () {
-            if (labelActive == false) {
-                this.classList.add('active');
-                let labelActive = true;
-            } else {
+            if (labelActive.classList.contains('active')) {
                 this.classList.remove('active');
-                let labelActive = false;
+            } else {
+                this.classList.add('active');
             }
         });
     });
@@ -216,6 +205,7 @@ app.events = function () {
         e.preventDefault();
         e.stopPropagation();
         app.recipeKeys();
+        app.emptyPreviousSearchResults();
         app.updateSearchForm();
     };
 };
@@ -232,12 +222,24 @@ app.init = function () {
 
 // toDo:
 
-// make more dry - each function should only do one thing! 
+// make more PURE -  each function should only do one thing and see where functions can be reused! 
 
 // make a title that says no results for searchterm is it is invalid
-
-// make entire recipe li clickable to link of reicpe site 
 
 // add directions
 
 // animation on buttons (directions stretch select)
+
+// ES6: 
+// Map
+// filter 
+// axios 
+// for each 
+// back ticks 
+// reusuable functions 
+
+// addclasslist
+// document.queryselector - unlike jquerry selector only targets 1 element, so to target all, have to use for each loop
+// .css - .style
+// creating elements and innerhtml - more rigorous w.out js but with reusable elements, can be clean 
+// dont need to use push because new arrays are created with map and filter

@@ -279,10 +279,10 @@ input[type="submit"] {
             border:none;
             border-top:1px solid $blue;
             background: transparent;
-            height:50px;
+            height: 50px;
             font-family:$main-font;
             text-transform: uppercase;
-            font-size:1.2rem;
+            font-size: 1.2rem;
             cursor: pointer;
         }
         li {
@@ -294,21 +294,22 @@ input[type="submit"] {
 .ingredients {
     margin:0;
     padding: 0;
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     width:93%;
-    top: 20%;
-    left:7px;
+    position: absolute;
+    top: 1000px;
+    left: 7px;
     bottom:0;
     right:0;
     z-index: 3;
     background-color:rgba(255,251,230,0.9);
-    position:absolute;
-    -webkit-transition:0.5s all ease;
-    transition:0.5s all ease;
-    cursor:pointer;
+    -webkit-transition: .5s all ease;
+    transition: .5s all ease;
+    cursor: pointer;
+    overflow: hidden;
     li {
         padding: 0;
         margin: 0 0 0 10%; 
@@ -317,13 +318,9 @@ input[type="submit"] {
     }
 }
 .show {
-    display: flex;
-    top: -10%;
-}
-.hide {
-    display: none;
     top: 20%;
 }
+
 footer {
     height:3vh;
     display: flex;
