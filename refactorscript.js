@@ -174,9 +174,11 @@ app.updateSearchForm = function () {
 }
 
 app.smoothScroll = function () {
-    $('html, body').animate({
-        scrollTop: $('#results').offset().top
-    }, 800, function () {
+    let resultsYPosition = document.getElementById('results').offsetTop;
+    window.scroll({
+        top: resultsYPosition, 
+        left: 0, 
+        behavior: 'smooth'
     });
 }
 
@@ -194,11 +196,10 @@ app.events = function () {
     if (Window.innerWidth < 480) {
         app.hideFilters();
     };
-
     const label = document.querySelectorAll('label');
     label.forEach(label => {
         label.addEventListener('click', function () {
-            if (labelActive.classList.contains('active')) {
+            if (this.classList.contains('active')) {
                 this.classList.remove('active');
             } else {
                 this.classList.add('active');
