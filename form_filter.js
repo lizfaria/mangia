@@ -21,40 +21,46 @@ class SearchBar extends React.Component {
     }
     render () {
         return (
-            <form action="" onSubmit={this.searchRecipes}>
-                <div>
-                    <label>Search By Ingredient</label>
-                    <input 
-                        type="text" 
-                        placeholder="Search By Ingredient" 
-                        onChange={this.handleSearchTextChange} 
-                        value={this.props.searchText}
-                    />
-                </div>
+            <header>
+                <form action="" onSubmit={this.searchRecipes} id="search-form" name="search" required>
+                    <div>
+                        <label className="visually-hidden" htmlFor="search">Search By Ingredient</label>
+                        <input 
+                            id="search"
+                            type="text" 
+                            placeholder="Search By Ingredient" 
+                            onChange={this.handleSearchTextChange} 
+                            value={this.props.searchText}
+                        />
+                    </div>
 
-                <ul>
-                    <h3>Allergens</h3>
-                    {this.props.allergens.map((allergen) => 
-                        <li key={allergen.value} >
-                            <label  htmlFor={allergen.value}>{allergen.name}</label>
-                            <input id={allergen.value} type="checkbox" name="allergy" value={allergen.value} checked={this.props.allergenSelected} onChange={this.handleAllergenChange} />
-                        </li>
-                    )}
-                    <h3>Dietary Restrictions</h3>
-                    {this.props.diets.map((diet) => 
-                        <li key={diet.value} >
-                            <label  htmlFor={diet.value}>{diet.name}</label>
-                            <input id={diet.value} type="checkbox" name="allergy" value={diet.value} checked={this.props.dietSelected} onChange={this.handleDietChange} />
-                        </li>
-                    )}
-                </ul>
-                <input 
-                    type="submit" 
-                    name="submit" 
-                    value="Find a Recipe" 
-                    onSubmit={this.searchRecipes}
-                />
-            </form>
+                    <h3><i className="fas fa-chevron-circle-down"></i>Filter Allergies</h3>
+                    <ul className="allergies">
+                        {this.props.allergens.map((allergen) => 
+                            <li key={allergen.value} >
+                                <label  htmlFor={allergen.value}>{allergen.name}</label>
+                                <input id={allergen.value} type="checkbox" name="allergy" value={allergen.value} checked={this.props.allergenSelected} onChange={this.handleAllergenChange} />
+                            </li>
+                        )}
+                    </ul>
+                    <h3><i className="fas fa-chevron-circle-down"></i>Filter Dietary Restrictions</h3>
+                    <ul className="dietary">
+                        {this.props.diets.map((diet) => 
+                            <li key={diet.value} >
+                                <label  htmlFor={diet.value}>{diet.name}</label>
+                                <input id={diet.value} type="checkbox" name="allergy" value={diet.value} checked={this.props.dietSelected} onChange={this.handleDietChange} />
+                            </li>
+                        )}
+                    </ul>
+                    <input 
+                        type="submit" 
+                        name="submit" 
+                        id="submit"
+                        value="Find a Recipe" 
+                        onSubmit={this.searchRecipes}
+                    />
+                </form>
+            </header>
         )
     }
 }
@@ -65,16 +71,14 @@ class RecipeCard extends React.Component {
     }
     render() {
         const recipeCard = this.props.recipes.map((recipe) => 
-           <li key={recipe.id}>
+           <li className="item" key={recipe.id}>
                 <h4>{recipe.recipeName}</h4>
                 <a href={`"https://www.yummly.com/recipe/${recipe.id}"`}>{recipe.sourceDisplayName}</a>
                 <img src={recipe.imageUrlsBySize['90'].split('=')[0]} className="meal"/>
             </li>
         )
         return (
-            <div>
-                <ul>{recipeCard}</ul> 
-            </div>
+            <ul id="recipes">{recipeCard}</ul> 
         )
     }
 }
@@ -85,8 +89,8 @@ class Results extends React.Component {
     }
     render() {
         return (
-            <div>
-                <h1>{this.props.searchText}</h1>
+            <div id="results">
+                <h1 id="searchTitle">{this.props.searchText}</h1>
                 <RecipeCard recipes={this.props.recipes} searchText={this.props.searchText}/>
             </div>
         )
@@ -201,7 +205,7 @@ const allergens = [
     {value:'392^Wheat-Free', name:'Wheat-Free'},
 ]
 const diets = [
-    {value:'387^Lacto-ovo vegetarian', name:"Lacto-ovo Vegetarian"},
+    {value:'387^Lacto-ovo vegetarian', name:"Lacto-Ovo Vegetarian"},
     {value:'389^Ovo vegetarian', name:'Ovo Vegetarian'},
     {value:'388^Lacto Vegetarian', name:'Lacto-Vegetarian'},
     {value:'390^Pescetarian', name:'Pescetarian'},
